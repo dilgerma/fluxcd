@@ -1,4 +1,7 @@
-
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kafka
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
@@ -1603,7 +1606,7 @@ spec:
                                   URI of the User Info Endpoint to use as a
                                   fallback to obtaining the user id when the
                                   Introspection Endpoint does not return
-                                  information that can be used for the user id. 
+                                  information that can be used for the user id.
                               userNameClaim:
                                 type: string
                                 description: >-
@@ -2550,7 +2553,7 @@ spec:
                                 the configuration.
                           description: >-
                             `ConfigMap` entry where the logging configuration is
-                            stored. 
+                            stored.
                       required:
                         - type
                       description: Logging configuration for Kafka.
@@ -3985,7 +3988,7 @@ spec:
                                 the configuration.
                           description: >-
                             `ConfigMap` entry where the logging configuration is
-                            stored. 
+                            stored.
                       required:
                         - type
                       description: Logging configuration for ZooKeeper.
@@ -5028,7 +5031,7 @@ spec:
                                     containing the configuration.
                               description: >-
                                 `ConfigMap` entry where the logging
-                                configuration is stored. 
+                                configuration is stored.
                           required:
                             - type
                           description: Logging configuration.
@@ -5208,7 +5211,7 @@ spec:
                                     containing the configuration.
                               description: >-
                                 `ConfigMap` entry where the logging
-                                configuration is stored. 
+                                configuration is stored.
                           required:
                             - type
                           description: Logging configuration.
@@ -6493,7 +6496,7 @@ spec:
                                 the configuration.
                           description: >-
                             `ConfigMap` entry where the logging configuration is
-                            stored. 
+                            stored.
                       required:
                         - type
                       description: Logging configuration (Log4j 2) for Cruise Control.
@@ -9959,7 +9962,7 @@ spec:
                             configuration.
                       description: >-
                         `ConfigMap` entry where the logging configuration is
-                        stored. 
+                        stored.
                   required:
                     - type
                   description: Logging configuration for Kafka Connect.
@@ -11679,7 +11682,7 @@ spec:
                                     while building the new container. If not
                                     specified, the downloaded artifact will not
                                     be verified. Not applicable to the `maven`
-                                    artifact type. 
+                                    artifact type.
                                 type:
                                   type: string
                                   enum:
@@ -12278,7 +12281,7 @@ spec:
                             configuration.
                       description: >-
                         `ConfigMap` entry where the logging configuration is
-                        stored. 
+                        stored.
                   required:
                     - type
                   description: Logging configuration for Kafka Bridge.
@@ -14056,7 +14059,7 @@ spec:
                             configuration.
                       description: >-
                         `ConfigMap` entry where the logging configuration is
-                        stored. 
+                        stored.
                   required:
                     - type
                   description: Logging configuration for MirrorMaker.
@@ -15549,7 +15552,7 @@ spec:
                             configuration.
                       description: >-
                         `ConfigMap` entry where the logging configuration is
-                        stored. 
+                        stored.
                   required:
                     - type
                   description: Logging configuration for Kafka Connect.
