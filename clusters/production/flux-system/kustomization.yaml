@@ -10,7 +10,7 @@ metadata:
   name: apps
   namespace: flux-system
 spec:
-  interval: 10m0s
+  interval: 1m0s
   dependsOn:
     - name: infrastructure
   sourceRef:
@@ -26,7 +26,7 @@ metadata:
   name: infrastructure
   namespace: flux-system
 spec:
-  interval: 10m0s
+  interval: 1m0s
   sourceRef:
     kind: GitRepository
     name: flux-system
