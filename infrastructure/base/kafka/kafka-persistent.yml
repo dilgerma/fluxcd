@@ -22,14 +22,14 @@ spec:
         tls: false
         configuration:
           bootstrap:
-            nodePort: 32100
+            nodePort: 32000
           brokers:
             - broker: 0
-              nodePort: 32000
-            - broker: 1
               nodePort: 32001
-            - broker: 2
+            - broker: 1
               nodePort: 32002
+            - broker: 2
+              nodePort: 32003
 #        authentication:
 #          type: tls
     config:
