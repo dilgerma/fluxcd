@@ -1,4 +1,4 @@
-apiVersion: kustomization.kustomize.toolkit.fluxcd.io
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization
 metadata:
   name: apps
@@ -15,7 +15,7 @@ spec:
   wait: true
 
 ---
-apiVersion: kustomization.kustomize.toolkit.fluxcd.io
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization
 metadata:
   name: infrastructure
