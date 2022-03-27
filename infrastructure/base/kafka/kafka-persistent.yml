@@ -42,11 +42,11 @@ spec:
             host: kafka-local
           brokers:
             - broker: 0
-              host: 1.kafka-local
+              host: kafka-local-1
             - broker: 1
-              host: 2.kafka-local
+              host: kafka-local-2
             - broker: 2
-              host: 3.kafka.local
+              host: kafka.local-3
     #        authentication:
     #          type: tls
     config:
