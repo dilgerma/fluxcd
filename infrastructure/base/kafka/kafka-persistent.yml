@@ -16,25 +16,39 @@ spec:
         port: 9093
         type: internal
         tls: true
+          #      - name: external
+          #        port: 9094
+          #        type: nodeport
+          #        tls: false
+          #        configuration:
+          #          bootstrap:
+          #            nodePort: 32000
+          #          brokers:
+          #            - broker: 0
+          #              nodePort: 32001
+          #              advertisedHost: kafka-local
+          #            - broker: 1
+          #              nodePort: 32002
+          #              advertisedHost: kafka-local
+          #            - broker: 2
+          #              nodePort: 32003
+          #              advertisedHost: kafka-local
       - name: external
         port: 9094
-        type: nodeport
-        tls: false
+        type: ingress
+        tls: true
         configuration:
           bootstrap:
-            nodePort: 32000
+            host: kafka-local
           brokers:
             - broker: 0
-              nodePort: 32001
-              advertisedHost: kafka-local
+              host: 1.kafka-local
             - broker: 1
-              nodePort: 32002
-              advertisedHost: kafka-local
+              host: 2.kafka-local
             - broker: 2
-              nodePort: 32003
-              advertisedHost: kafka-local
+              host: 3.kafka.local
     #        authentication:
-#          type: tls
+    #          type: tls
     config:
       offsets.topic.replication.factor: 1
       transaction.state.log.replication.factor: 1
@@ -45,10 +59,10 @@ spec:
     storage:
       type: jbod
       volumes:
-      - id: 0
-        type: persistent-claim
-        size: 10Gi
-        deleteClaim: false
+        - id: 0
+          type: persistent-claim
+          size: 10Gi
+          deleteClaim: false
   zookeeper:
     replicas: 1
     storage:
@@ -56,5 +70,5 @@ spec:
       size: 10Gi
       deleteClaim: false
   entityOperator:
-    topicOperator: {}
-    userOperator: {}
+    topicOperator: { }
+    userOperator: { }
