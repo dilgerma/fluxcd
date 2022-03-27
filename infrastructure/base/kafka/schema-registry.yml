@@ -21,12 +21,12 @@ spec:
         ports:
         - containerPort: 8081
         - env:
-            - name: SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL
-              value: my-cluster-zookeeper-client:2181
-            - name: SCHEMA_REGISTRY_HOST_NAME
-              value: registry-0.schema.default.svc.cluster.local
-            - name: SCHEMA_REGISTRY_LISTENERS
-              value: http://0.0.0.0:8081
+          - name: SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL
+            value: my-cluster-zookeeper-client:2181
+          - name: SCHEMA_REGISTRY_HOST_NAME
+            value: registry-0.schema.default.svc.cluster.local
+          - name: SCHEMA_REGISTRY_LISTENERS
+            value: http://0.0.0.0:8081
 #apiVersion: apps/v1
 #kind: Deployment
 #metadata:
