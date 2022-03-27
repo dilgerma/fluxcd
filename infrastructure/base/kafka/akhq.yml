@@ -20,7 +20,6 @@ data:
           key: kafka-cluster
           properties:
             bootstrap.servers: "my-cluster-kafka-bootstrap:9092"
-            security.protocol: PLAINTEXT
           schema-registry:
             url: "http://confluent-schema-registry:8081"
 #          connect:
