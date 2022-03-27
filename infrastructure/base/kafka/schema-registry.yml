@@ -27,6 +27,8 @@ spec:
             value: registry-0.schema.default.svc.cluster.local
           - name: SCHEMA_REGISTRY_LISTENERS
             value: http://0.0.0.0:8081
+          - name: SCHEMA_REGISTRY_KAFKASTORE_SECURITY_PROTOCOL
+            value: "PLAIN"
 #apiVersion: apps/v1
 #kind: Deployment
 #metadata:
