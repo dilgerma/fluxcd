@@ -91,17 +91,17 @@ spec:
             - name: http
               containerPort: 8080
               protocol: TCP
-          livenessProbe:
-            httpGet:
-              port: 8081
-              path: /health
-          resources:
-            limits:
-              memory: 1024Mi
-              cpu: 500m
-            requests:
-              memory: 512Mi
-              cpu: 10m
+#          livenessProbe:
+#            httpGet:
+#              port: 8081
+#              path: /health
+#          resources:
+#            limits:
+#              memory: 1024Mi
+#              cpu: 500m
+#            requests:
+#              memory: 512Mi
+#              cpu: 10m
       volumes:
         - name: config
           configMap:
