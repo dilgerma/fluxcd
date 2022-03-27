@@ -16,10 +16,17 @@ spec:
         app: schema-registry
     spec:
       containers:
-      - name: nginx
-        image: nginx:1.14.2
+      - name: schema-registry
+        image: confluentinc/cp-schema-registry:5.0.1
         ports:
-        - containerPort: 80
+        - containerPort: 8081
+        - env:
+            - name: SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL
+              value: my-cluster-zookeeper-client:2181
+            - name: SCHEMA_REGISTRY_HOST_NAME
+              value: registry-0.schema.default.svc.cluster.local
+            - name: SCHEMA_REGISTRY_LISTENERS
+              value: http://0.0.0.0:8081
 #apiVersion: apps/v1
 #kind: Deployment
 #metadata:
