@@ -16,37 +16,37 @@ spec:
         port: 9093
         type: internal
         tls: true
-          #      - name: external
-          #        port: 9094
-          #        type: nodeport
-          #        tls: false
-          #        configuration:
-          #          bootstrap:
-          #            nodePort: 32000
-          #          brokers:
-          #            - broker: 0
-          #              nodePort: 32001
-          #              advertisedHost: kafka-local
-          #            - broker: 1
-          #              nodePort: 32002
-          #              advertisedHost: kafka-local
-          #            - broker: 2
-          #              nodePort: 32003
-          #              advertisedHost: kafka-local
       - name: external
-        port: 32000
-        type: ingress
+        port: 9094
+        type: nodeport
         tls: false
         configuration:
           bootstrap:
-            host: kafka-local
+            nodePort: 32000
           brokers:
             - broker: 0
-              host: kafka-local-1
+              nodePort: 32001
+              advertisedHost: kafka-local
             - broker: 1
-              host: kafka-local-2
+              nodePort: 32002
+              advertisedHost: kafka-local
             - broker: 2
-              host: kafka.local-3
+              nodePort: 32003
+              advertisedHost: kafka-local
+#      - name: external
+#        port:
+#        type: ingress
+#        tls: false
+#        configuration:
+#          bootstrap:
+#            host: kafka-local
+#          brokers:
+#            - broker: 0
+#              host: kafka-local-1
+#            - broker: 1
+#              host: kafka-local-2
+#            - broker: 2
+#              host: kafka.local-3
     #        authentication:
     #          type: tls
     config:
