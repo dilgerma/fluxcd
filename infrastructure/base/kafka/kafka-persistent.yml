@@ -34,7 +34,7 @@ spec:
           #              nodePort: 32003
           #              advertisedHost: kafka-local
       - name: external
-        port: 9094
+        port: 32000
         type: ingress
         tls: true
         configuration:
