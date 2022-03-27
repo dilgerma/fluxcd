@@ -5,4 +5,4 @@ resources:
 - kafka.yml
 - kafka-persistent.yml
 - schema-registry.yml
-#- akhq.yml
+- akhq.yml
