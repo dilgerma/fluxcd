@@ -23,7 +23,7 @@ data:
 :q!          schema-registry:
             url: "http://confluent-schema-registry:8081"
 #          connect:
-#            - name: adp-connect
+#            - name: adp-connect s
 #              url: "adp-connect-cluster-connect-api:8083"
 ---
 apiVersion: apps/v1
