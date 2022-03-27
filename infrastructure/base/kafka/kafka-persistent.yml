@@ -36,7 +36,7 @@ spec:
       - name: external
         port: 32000
         type: ingress
-#        tls: true
+        tls: false
         configuration:
           bootstrap:
             host: kafka-local
