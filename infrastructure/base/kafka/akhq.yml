@@ -2,6 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: akhq-secrets
+  namespace: kafka
   labels:
     app.kubernetes.io/name: akhq-secrets
 data:
@@ -23,6 +24,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: akhq
+  namespace: kafka
   labels:
     app: akhq
 data:
@@ -39,6 +41,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: akhq
+  namespace: kafka
   labels:
     app: akhq
 spec:
@@ -87,6 +90,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: akhq
+  namespace: kafka
   labels:
     app: akhq
 spec:
