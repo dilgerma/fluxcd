@@ -20,7 +20,7 @@ data:
           key: kafka-cluster
           properties:
             bootstrap.servers: "my-cluster-kafka-bootstrap:9092"
-:q!          schema-registry:
+          schema-registry:
             url: "http://confluent-schema-registry:8081"
 #          connect:
 #            - name: adp-connect s
