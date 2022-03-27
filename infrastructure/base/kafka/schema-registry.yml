@@ -4,6 +4,7 @@ metadata:
   name: nginx-deployment
   labels:
     app: nginx
+  namespace: kafka
 spec:
   replicas: 3
   selector:
