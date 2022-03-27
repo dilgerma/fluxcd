@@ -20,7 +20,7 @@ data:
           key: kafka-cluster
           properties:
             bootstrap.servers: "my-cluster-kafka-bootstrap:9092"
-          schema-registry:
+:q!          schema-registry:
             url: "http://confluent-schema-registry:8081"
 #          connect:
 #            - name: adp-connect
@@ -34,7 +34,7 @@ metadata:
   labels:
     app: akhq
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: akhq
