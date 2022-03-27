@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: schema-registry-deployment
   labels:
-    app: nginx
+    app: schema-registry
   namespace: kafka
 spec:
   replicas: 1
