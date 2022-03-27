@@ -28,7 +28,7 @@ spec:
           - name: SCHEMA_REGISTRY_LISTENERS
             value: http://0.0.0.0:8081
           - name: SCHEMA_REGISTRY_KAFKASTORE_SECURITY_PROTOCOL
-            value: "PLAIN_TEXT"
+            value: "PLAINTEXT"
 ---
 apiVersion: v1
 kind: Service
