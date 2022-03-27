@@ -1,21 +1,21 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: akhq-secrets
   namespace: kafka
+  name: akhq-secrets
   labels:
     app.kubernetes.io/name: akhq-secrets
 data:
   application-secrets.yml: |
     akhq:
       connections:
-        adp-kafka-cluster:
+        kafka-cluster:
           key: kafka-cluster
           properties:
             bootstrap.servers: "my-cluster-kafka-bootstrap:9092"
             security.protocol: PLAINTEXT
           schema-registry:
-            url: "http://schema-registry:8081"
+            url: "http://confluent-schema-registry:8081"
 #          connect:
 #            - name: adp-connect
 #              url: "adp-connect-cluster-connect-api:8083"
@@ -23,8 +23,8 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: akhq
   namespace: kafka
+  name: akhq
   labels:
     app: akhq
 data:
@@ -40,12 +40,12 @@ data:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: akhq
   namespace: kafka
+  name: akhq
   labels:
     app: akhq
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: akhq
@@ -53,6 +53,10 @@ spec:
     metadata:
       labels:
         app: akhq
+      annotations:
+        prometheus.io/scrape: 'true'
+        prometheus.io/port: '8081'
+        prometheus.io/path: '/prometheus'
     spec:
       containers:
         - name: akhq
@@ -78,6 +82,13 @@ spec:
             httpGet:
               port: 8081
               path: /health
+          resources:
+            limits:
+              memory: 1024Mi
+              cpu: 500m
+            requests:
+              memory: 512Mi
+              cpu: 10m
       volumes:
         - name: config
           configMap:
@@ -85,12 +96,14 @@ spec:
         - name: secrets
           configMap:
             name: akhq-secrets
+      imagePullSecrets:
+        - name: docker-cfg
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: akhq
   namespace: kafka
+  name: akhq
   labels:
     app: akhq
 spec:
