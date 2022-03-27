@@ -1,10 +1,16 @@
-#- env:
-#        - name: SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL
-#          value: my-cluster-zookeeper-client:2181
-#        - name: SCHEMA_REGISTRY_HOST_NAME
-#          value: registry-0.schema.default.svc.cluster.local
-#        - name: SCHEMA_REGISTRY_LISTENERS
-#          value: http://0.0.0.0:8081
+#AKHQ_CONFIGURATION: |
+#       akhq:
+#         connections:
+#           docker-kafka-server:
+#             properties:
+#               bootstrap.servers: "kafka:9092"
+#               #bootstrap.servers: "3.237.253.154:9092"
+#               schema-registry:
+#               url: "http://schema-registry:8085"
+#             connect:
+#               - name: "connect"
+#                 url: "http://connect:8083"
+
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -20,11 +26,29 @@ data:
           key: kafka-cluster
           properties:
             bootstrap.servers: "my-cluster-kafka-bootstrap:9092"
+            security.protocol: PLAINTEXT
           schema-registry:
             url: "http://confluent-schema-registry:8081"
 #          connect:
-#            - name: adp-connect s
+#            - name: adp-connect
 #              url: "adp-connect-cluster-connect-api:8083"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: kafka
+  name: akhq
+  labels:
+    app: akhq
+data:
+  application.yml: |
+    akhq:
+      server:
+        access-log:
+          enabled: true
+          name: org.akhq.log.access
+      topic:
+        default-view: HIDE_INTERNAL_STREAM
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -34,7 +58,7 @@ metadata:
   labels:
     app: akhq
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: akhq
@@ -55,8 +79,12 @@ spec:
             - name: MICRONAUT_ENVIRONMENTS
               value: secrets
             - name: MICRONAUT_CONFIG_FILES
-              value: /app/application-secrets.yml
+              value: /app/application.yml,/app/application-secrets.yml
           volumeMounts:
+            - name: config
+              mountPath: /app/application.yml
+              subPath: application.yml
+            - name: secrets
               mountPath: /app/application-secrets.yml
               subPath: application-secrets.yml
           ports:
@@ -75,6 +103,9 @@ spec:
               memory: 512Mi
               cpu: 10m
       volumes:
+        - name: config
+          configMap:
+            name: akhq
         - name: secrets
           configMap:
             name: akhq-secrets
