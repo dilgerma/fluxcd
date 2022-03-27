@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
 - kafka
 - topics/test-topic.yaml
-
+- ingress/nginx.yml
