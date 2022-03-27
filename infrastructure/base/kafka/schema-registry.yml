@@ -2,8 +2,13 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: schema-registry
+  labels:
+    app: schema-registry
   namespace: kafka
 spec:
+  selector:
+    matchLabels:
+      app: schema-registry
   replicas: 1
   template:
     metadata:
