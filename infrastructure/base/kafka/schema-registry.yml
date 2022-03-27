@@ -29,33 +29,16 @@ spec:
             value: http://0.0.0.0:8081
           - name: SCHEMA_REGISTRY_KAFKASTORE_SECURITY_PROTOCOL
             value: "PLAIN_TEXT"
-#apiVersion: apps/v1
-#kind: Deployment
-#metadata:
-#  name: schema-registry
-#  labels:
-#    app: schema-registry
-#  namespace: kafka
-#spec:
-#  selector:
-#    matchLabels:
-#      app: schema-registry
-#  replicas: 1
-#  template:
-#    metadata:
-#      labels:
-#        name: schema-registry
-#    spec:
-#      containers:
-#      - env:
-#        - name: SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL
-#          value: my-cluster-zookeeper-client:2181
-#        - name: SCHEMA_REGISTRY_HOST_NAME
-#          value: registry-0.schema.default.svc.cluster.local
-#        - name: SCHEMA_REGISTRY_LISTENERS
-#          value: http://0.0.0.0:8081
-#        name: schema-registry
-#        image: confluentinc/cp-schema-registry:5.0.1
-#        ports:
-#        - containerPort: 8081
-#      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: schema-registry
+  labels:
+    app: schema-registry
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8081
+  selector:
+    app: schema-registry

@@ -1,0 +1,101 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: akhq-secrets
+  labels:
+    app.kubernetes.io/name: akhq-secrets
+data:
+  application-secrets.yml: |
+    akhq:
+      connections:
+        adp-kafka-cluster:
+          key: kafka-cluster
+          properties:
+            bootstrap.servers: "my-cluster-kafka-bootstrap:9092"
+            security.protocol: PLAINTEXT
+          schema-registry:
+            url: "http://schema-registry:8081"
+#          connect:
+#            - name: adp-connect
+#              url: "adp-connect-cluster-connect-api:8083"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: akhq
+  labels:
+    app: akhq
+data:
+  application.yml: |
+    akhq:
+      server:
+        access-log:
+          enabled: true
+          name: org.akhq.log.access
+      topic:
+        default-view: HIDE_INTERNAL_STREAM
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: akhq
+  labels:
+    app: akhq
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: akhq
+  template:
+    metadata:
+      labels:
+        app: akhq
+    spec:
+      containers:
+        - name: akhq
+          image: tchiotludo/akhq
+          imagePullPolicy: "IfNotPresent"
+          env:
+            - name: MICRONAUT_ENVIRONMENTS
+              value: secrets
+            - name: MICRONAUT_CONFIG_FILES
+              value: /app/application.yml,/app/application-secrets.yml
+          volumeMounts:
+            - name: config
+              mountPath: /app/application.yml
+              subPath: application.yml
+            - name: secrets
+              mountPath: /app/application-secrets.yml
+              subPath: application-secrets.yml
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              port: 8081
+              path: /health
+      volumes:
+        - name: config
+          configMap:
+            name: akhq
+        - name: secrets
+          configMap:
+            name: akhq-secrets
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: akhq
+  labels:
+    app: akhq
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8080
+    - name: info
+      port: 8081
+  selector:
+    app: akhq
+
