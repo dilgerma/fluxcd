@@ -12,6 +12,7 @@ spec:
       app: schema-registry
   template:
     metadata:
+      namespace: kafka
       labels:
         app: schema-registry
     spec:
@@ -33,6 +34,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  namespace: kafka
   name: schema-registry
   labels:
     app: schema-registry
