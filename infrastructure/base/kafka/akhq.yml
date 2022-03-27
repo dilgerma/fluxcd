@@ -58,7 +58,7 @@ metadata:
   labels:
     app: akhq
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: akhq
@@ -66,10 +66,10 @@ spec:
     metadata:
       labels:
         app: akhq
-      annotations:
-        prometheus.io/scrape: 'true'
-        prometheus.io/port: '8081'
-        prometheus.io/path: '/prometheus'
+#      annotations:
+#        prometheus.io/scrape: 'true'
+#        prometheus.io/port: '8081'
+#        prometheus.io/path: '/prometheus'
     spec:
       containers:
         - name: akhq
